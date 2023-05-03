@@ -60,6 +60,7 @@ STATE_IN_WAIT_TAG = 6
 STATE_SINGLE_PUNCTUATION = 7
 STATE_DOUBLE_PUNCTUATION = 8
 STATE_COMMENT = 9
+# STATE_MENU = 10
 
 state_names = {
     STATE_NORMAL: "STATE_NORMAL",
@@ -72,6 +73,7 @@ state_names = {
     STATE_SINGLE_PUNCTUATION: "STATE_SINGLE_PUNCTUATION",
     STATE_DOUBLE_PUNCTUATION: "STATE_DOUBLE_PUNCTUATION",
     STATE_COMMENT: "STATE_COMMENT",
+    # STATE_MENU: "STATE_MENU",
 }
 
 PUNCTUATION_SINGLE = [',', '-', ':']
@@ -98,7 +100,7 @@ def main():
                 state = STATE_NORMAL
                 c = f_in.read(1)
                 while c:
-                    print(f"Current state: {state_names[state]}")
+                    #print(f"Current state: {state_names[state]}")
 
                     if state == STATE_NORMAL:
                         # Check for open brackets
@@ -113,8 +115,16 @@ def main():
                         elif c == '#':
                             state = STATE_COMMENT
 
+                        # elif c == 'm':
+                        #     if peek_n(f_in) == "enu:":
+                        #         state = STATE_MENU
+
+
 
                         f_out.write(c)
+
+                    # elif state == STATE_MENU:
+                        
                     elif state == STATE_IN_PARENS:
                         # Check for close parenthesis
                         if c == ')':
@@ -224,7 +234,7 @@ def main():
                                     f_out.write('{w=0.8}')
                                 state = STATE_IN_QUOTE
                         elif c == '.':
-                            f_out.write('{w=0.2}')
+                            #f_out.write('{w=0.2}')
                             f_out.write(c)
                         else:
                             f_out.write(c)
